@@ -1,8 +1,9 @@
 package cotuba;
 
+import cotuba.model.Chapter;
+import cotuba.model.EBook;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubWriter;
@@ -10,20 +11,20 @@ import nl.siegmann.epublib.service.MediatypeService;
 
 public class EPUBGenerator {
 
-	public void generate(Path mdDirectory, Path outputFile) {
+	public void generate(EBook eBook) {
 		var epub = new Book();
+		for (Chapter chapter : eBook.getChapters()) {
 
-		// TODO: usar título do capítulo
-		epub.addSection("Capítulo",
-			new Resource(html.getBytes(), MediatypeService.XHTML));
-
+			epub.addSection(chapter.getTitle(),
+				new Resource(chapter.getHTMLContent().getBytes(), MediatypeService.XHTML));
+		}
 		var epubWriter = new EpubWriter();
 
 		try {
-			epubWriter.write(epub, Files.newOutputStream(outputFile));
+			epubWriter.write(epub, Files.newOutputStream(eBook.getOutputFile()));
 		} catch (IOException ex) {
 			throw new IllegalStateException(
-				"Erro ao criar arquivo EPUB: " + outputFile.toAbsolutePath(), ex);
+				"Erro ao criar arquivo EPUB: " + eBook.getOutputFile().toAbsolutePath(), ex);
 		}
 	}
 
