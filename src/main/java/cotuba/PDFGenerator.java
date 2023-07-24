@@ -26,8 +26,9 @@ public class PDFGenerator {
 				for (IElement element : convertToElements) {
 					pdfDocument.add((IBlockElement) element);
 				}
-				// TODO: não adicionar página depois do último capítulo
-				pdfDocument.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+				if (!eBook.isTheLastChapter(chapter)) {
+					pdfDocument.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+				}
 			}
 
 		} catch (Exception ex) {

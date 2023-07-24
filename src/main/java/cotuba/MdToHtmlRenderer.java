@@ -9,10 +9,7 @@ import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-import org.commonmark.node.AbstractVisitor;
-import org.commonmark.node.Heading;
 import org.commonmark.node.Node;
-import org.commonmark.node.Text;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
@@ -31,20 +28,7 @@ public class MdToHtmlRenderer {
 					Node document = null;
 					try {
 						document = parser.parseReader(Files.newBufferedReader(arquivoMD));
-						document.accept(new AbstractVisitor() {
-							@Override
-							public void visit(Heading heading) {
-								if (heading.getLevel() == 1) {
-									String tituloDoCapitulo = ((Text) heading.getFirstChild()).getLiteral();
-									chapter.setTitle(tituloDoCapitulo);
-								} else if (heading.getLevel() == 2) {
-									// seção
-								} else if (heading.getLevel() == 3) {
-									// título
-								}
-							}
-
-						});
+						document.accept(new CotubaVisitor(chapter));
 					} catch (Exception ex) {
 						throw new IllegalStateException(
 							"Erro ao fazer parse do arquivo " + arquivoMD, ex);

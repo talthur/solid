@@ -17,10 +17,8 @@ public class Main {
 		boolean modoVerboso = commandLineReader.isModoVerboso();
 
 		MdToHtmlRenderer mdToHtmlRenderer = new MdToHtmlRenderer();
-		EBook eBook = new EBook();
-		eBook.setChapters(mdToHtmlRenderer.render(diretorioDosMD));
-		eBook.setFormat(formato);
-		eBook.setOutputFile(arquivoDeSaida);
+		List<Chapter> render = mdToHtmlRenderer.render(diretorioDosMD);
+		EBook eBook = EBook.of(formato, arquivoDeSaida, render);
 		try {
 			if ("pdf".equals(formato)) {
 				var pdfGenerator = new PDFGenerator();
