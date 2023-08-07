@@ -1,6 +1,6 @@
-package cotuba;
+package cotuba.cli;
 
-import cotuba.model.Cotuba;
+import cotuba.application.Cotuba;
 import java.nio.file.Path;
 
 public class Main {
@@ -15,12 +15,12 @@ public class Main {
 		boolean modoVerboso = false;
 
 		try {
-			diretorioDosMD = commandLineReader.getDiretorioDosMD();
-			formato = commandLineReader.getFormato();
-			arquivoDeSaida = commandLineReader.getArquivoDeSaida();
-			modoVerboso = commandLineReader.isModoVerboso();
+			diretorioDosMD = commandLineReader.getMdDirectory();
+			formato = commandLineReader.getFormat();
+			arquivoDeSaida = commandLineReader.getOutputFile();
+			modoVerboso = commandLineReader.isVerboseMethod();
 			var cotuba = new Cotuba();
-			cotuba.execute(diretorioDosMD, formato, arquivoDeSaida, modoVerboso);
+			cotuba.execute(diretorioDosMD, formato, arquivoDeSaida);
 
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());

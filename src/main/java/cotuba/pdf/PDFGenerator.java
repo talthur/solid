@@ -1,4 +1,4 @@
-package cotuba;
+package cotuba.pdf;
 
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -11,7 +11,6 @@ import com.itextpdf.layout.property.AreaBreakType;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class PDFGenerator {

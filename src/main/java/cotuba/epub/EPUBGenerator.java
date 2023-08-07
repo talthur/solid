@@ -1,4 +1,4 @@
-package cotuba;
+package cotuba.epub;
 
 import cotuba.model.Chapter;
 import cotuba.model.EBook;

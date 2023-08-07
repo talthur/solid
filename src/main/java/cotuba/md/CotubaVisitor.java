@@ -1,11 +1,11 @@
-package cotuba;
+package cotuba.md;
 
 import cotuba.model.Chapter;
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.Heading;
 import org.commonmark.node.Text;
 
-class CotubaVisitor extends AbstractVisitor {
+public class CotubaVisitor extends AbstractVisitor {
 
 	private final Chapter chapter;
 
