@@ -5,17 +5,17 @@ import java.util.List;
 
 public class EBook {
 
-	private final String format;
+	private final EbookFormat format;
 	private final Path outputFile;
 	private final List<Chapter> chapters;
 
-	private EBook(String format, Path outputFile, List<Chapter> chapters) {
+	private EBook(EbookFormat format, Path outputFile, List<Chapter> chapters) {
 		this.format = format;
 		this.outputFile = outputFile;
 		this.chapters = chapters;
 	}
 
-	public static EBook of(String format, Path outputFile, List<Chapter> chapters) {
+	public static EBook of(EbookFormat format, Path outputFile, List<Chapter> chapters) {
 		if (format == null || outputFile == null || chapters == null || chapters.isEmpty()) {
 			throw new IllegalArgumentException();
 		}
@@ -23,7 +23,7 @@ public class EBook {
 			chapters);
 	}
 
-	public String getFormat() {
+	public EbookFormat getFormat() {
 		return format;
 	}
 

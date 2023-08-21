@@ -1,6 +1,5 @@
 package cotuba.md;
 
-import cotuba.application.MdToHtmlRenderer;
 import cotuba.model.Chapter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -15,9 +14,9 @@ import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MdToHtmlRendererCommonMark implements MdToHtmlRenderer {
+public class MdToHtmlRenderer {
 
-	@Override
+
 	public List<Chapter> render(Path mdDirectory) {
 		List<Path> mdFiles = getMDFiles(mdDirectory);
 

@@ -12,7 +12,7 @@ import nl.siegmann.epublib.service.MediatypeService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EPUBGeneratorEpublib implements EBookGenerator {
+public class EPUBGenerator implements EBookGenerator {
 
 	@Override
 	public void generate(EBook eBook) {

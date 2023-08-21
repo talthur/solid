@@ -17,7 +17,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PDFGeneratorIText implements EBookGenerator {
+public class PDFGenerator implements EBookGenerator {
 
 	@Override
 	public void generate(EBook eBook) {
