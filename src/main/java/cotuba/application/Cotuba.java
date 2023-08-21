@@ -1,7 +1,9 @@
 package cotuba.application;
 
+import cotuba.epub.EPUBGeneratorEpublib;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
+import cotuba.pdf.PDFGeneratorIText;
 import java.nio.file.Path;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,10 @@ import org.springframework.stereotype.Component;
 public class Cotuba {
 
 	private final MdToHtmlRenderer mdToHtmlRenderer;
-	private final PDFGenerator pdfGenerator;
-	private final EPUBGenerator epubGenerator;
 
 	@Autowired
-	public Cotuba(MdToHtmlRenderer mdToHtmlRenderer, PDFGenerator pdfGenerator, EPUBGenerator epubGenerator) {
+	public Cotuba(MdToHtmlRenderer mdToHtmlRenderer) {
 		this.mdToHtmlRenderer = mdToHtmlRenderer;
-		this.pdfGenerator = pdfGenerator;
-		this.epubGenerator = epubGenerator;
 	}
 
 	public void execute(CotubaParameters cotubaParameters) {
@@ -28,14 +26,17 @@ public class Cotuba {
 		Path outputFile = cotubaParameters.getOutputFile();
 		List<Chapter> render = mdToHtmlRenderer.render(mdDirectory);
 		EBook eBook = EBook.of(format, outputFile, render);
+		EBookGenerator eBookGenerator;
 		if ("pdf".equals(format)) {
-			pdfGenerator.generate(eBook);
+			eBookGenerator = new PDFGeneratorIText();
 
 		} else if ("epub".equals(format)) {
-			epubGenerator.generate(eBook);
+			eBookGenerator = new EPUBGeneratorEpublib();
 		} else {
 			throw new IllegalArgumentException("Formato do ebook inválido: " + format);
 		}
+
+		eBookGenerator.generate(eBook);
 
 		System.out.println("Arquivo gerado com sucesso: " + outputFile);
 	}

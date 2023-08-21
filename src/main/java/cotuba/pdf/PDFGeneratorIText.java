@@ -8,7 +8,7 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.property.AreaBreakType;
-import cotuba.application.PDFGenerator;
+import cotuba.application.EBookGenerator;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PDFGeneratorIText implements PDFGenerator {
+public class PDFGeneratorIText implements EBookGenerator {
 
 	@Override
 	public void generate(EBook eBook) {

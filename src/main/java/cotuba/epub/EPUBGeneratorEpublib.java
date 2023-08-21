@@ -1,6 +1,6 @@
 package cotuba.epub;
 
-import cotuba.application.EPUBGenerator;
+import cotuba.application.EBookGenerator;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import nl.siegmann.epublib.service.MediatypeService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EPUBGeneratorEpublib implements EPUBGenerator {
+public class EPUBGeneratorEpublib implements EBookGenerator {
 
 	@Override
 	public void generate(EBook eBook) {

@@ -2,7 +2,7 @@ package cotuba.application;
 
 import cotuba.model.EBook;
 
-public interface PDFGenerator {
+public interface EBookGenerator {
 
 	void generate(EBook eBook);
 
