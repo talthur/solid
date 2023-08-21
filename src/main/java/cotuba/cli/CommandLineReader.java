@@ -1,5 +1,6 @@
 package cotuba.cli;
 
+import cotuba.application.CotubaParameters;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,7 +18,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-class CommandLineReader {
+class CommandLineReader implements CotubaParameters {
 
 	private Path mdDirectory;
 	private String format;
@@ -118,14 +119,17 @@ class CommandLineReader {
 		return options;
 	}
 
+	@Override
 	public Path getMdDirectory() {
 		return mdDirectory;
 	}
 
+	@Override
 	public String getFormat() {
 		return format;
 	}
 
+	@Override
 	public Path getOutputFile() {
 		return outputFile;
 	}

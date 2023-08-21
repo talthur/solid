@@ -1,7 +1,9 @@
 package cotuba.cli;
 
+import cotuba.CotubaConfig;
 import cotuba.application.Cotuba;
-import java.nio.file.Path;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
 
@@ -9,18 +11,15 @@ public class Main {
 
 		var commandLineReader = new CommandLineReader(args);
 
-		Path diretorioDosMD;
-		String formato;
-		Path arquivoDeSaida;
 		boolean modoVerboso = false;
 
+		modoVerboso = commandLineReader.isVerboseMethod();
+
 		try {
-			diretorioDosMD = commandLineReader.getMdDirectory();
-			formato = commandLineReader.getFormat();
-			arquivoDeSaida = commandLineReader.getOutputFile();
-			modoVerboso = commandLineReader.isVerboseMethod();
-			var cotuba = new Cotuba();
-			cotuba.execute(diretorioDosMD, formato, arquivoDeSaida);
+			ApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+				CotubaConfig.class);
+			Cotuba cotuba = applicationContext.getBean(Cotuba.class);
+			cotuba.execute(commandLineReader);
 
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());

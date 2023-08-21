@@ -1,5 +1,6 @@
 package cotuba.epub;
 
+import cotuba.application.EPUBGenerator;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
 import java.io.IOException;
@@ -8,13 +9,15 @@ import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubWriter;
 import nl.siegmann.epublib.service.MediatypeService;
+import org.springframework.stereotype.Component;
 
-public class EPUBGenerator {
+@Component
+public class EPUBGeneratorEpublib implements EPUBGenerator {
 
+	@Override
 	public void generate(EBook eBook) {
 		var epub = new Book();
 		for (Chapter chapter : eBook.getChapters()) {
-
 			epub.addSection(chapter.getTitle(),
 				new Resource(chapter.getHTMLContent().getBytes(), MediatypeService.XHTML));
 		}
