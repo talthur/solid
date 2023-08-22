@@ -11,6 +11,7 @@ import com.itextpdf.layout.property.AreaBreakType;
 import cotuba.application.EBookGenerator;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
+import cotuba.model.EbookFormat;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
@@ -44,6 +45,11 @@ public class PDFGenerator implements EBookGenerator {
 		if (!eBook.isTheLastChapter(chapter)) {
 			pdfDocument.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 		}
+	}
+
+	@Override
+	public boolean accept(EbookFormat ebookFormat) {
+		return EbookFormat.PDF.equals(ebookFormat);
 	}
 
 }

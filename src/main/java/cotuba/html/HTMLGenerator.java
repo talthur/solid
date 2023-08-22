@@ -3,12 +3,15 @@ package cotuba.html;
 import cotuba.application.EBookGenerator;
 import cotuba.model.Chapter;
 import cotuba.model.EBook;
+import cotuba.model.EbookFormat;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.Normalizer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HTMLGenerator implements EBookGenerator {
 
 	@Override
@@ -54,5 +57,10 @@ public class HTMLGenerator implements EBookGenerator {
 	private String removeAcentos(String texto) {
 		return Normalizer.normalize(texto, Normalizer.Form.NFD)
 			.replaceAll("[^\\p{ASCII}]", "");
+	}
+
+	@Override
+	public boolean accept(EbookFormat ebookFormat) {
+		return EbookFormat.HTML.equals(ebookFormat);
 	}
 }

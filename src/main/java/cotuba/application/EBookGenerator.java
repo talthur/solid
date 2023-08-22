@@ -7,8 +7,6 @@ public interface EBookGenerator {
 
 	void generate(EBook eBook);
 
-	static EBookGenerator create(EbookFormat format) {
-		return format.geteBookGenerator();
-	}
+	boolean accept(EbookFormat ebookFormat);
 
 }

@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 public class Cotuba {
 
 	private final MdToHtmlRenderer mdToHtmlRenderer;
+	private final List<EBookGenerator> eBookGenerators;
 
 	@Autowired
-	public Cotuba(MdToHtmlRenderer mdToHtmlRenderer) {
+	public Cotuba(MdToHtmlRenderer mdToHtmlRenderer, List<EBookGenerator> epubGenerator) {
 		this.mdToHtmlRenderer = mdToHtmlRenderer;
+		this.eBookGenerators = epubGenerator;
 	}
 
 	public void execute(CotubaParameters cotubaParameters) {
@@ -26,9 +28,12 @@ public class Cotuba {
 		Path outputFile = cotubaParameters.getOutputFile();
 		List<Chapter> render = mdToHtmlRenderer.render(mdDirectory);
 		EBook eBook = EBook.of(format, outputFile, render);
-		EBookGenerator eBookGenerator = EBookGenerator.create(format);
-		eBookGenerator.generate(eBook);
 
+		EBookGenerator eBookGenerator = eBookGenerators.stream()
+			.filter(generator -> generator.accept(format))
+			.findAny().orElseThrow(() -> new IllegalArgumentException("Invalid ebook format! " + format));
+
+		eBookGenerator.generate(eBook);
 		System.out.println("Arquivo gerado com sucesso: " + outputFile);
 	}
 
